@@ -1,12 +1,14 @@
 name: uellow_delivery_app
 description: Uellow Delivery — carrier companies & drivers companion app
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.1.0+2
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
+  firebase_core: ^3.8.0
+  firebase_messaging: ^15.1.5
   flutter:
     sdk: flutter
   http: ^1.2.0

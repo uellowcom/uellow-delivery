@@ -83,6 +83,17 @@ class CarrierApi {
       _req('POST', p, body: body);
 
   // auth
+
+  /// FCM push token → main register-device endpoint (bearer auth) so the
+  /// fleet push engine can target this carrier account.
+  Future<void> registerPushToken(String deviceId, String token) async {
+    try {
+      await _post('/api/mobile/v2/notifications/register-device', body: {
+        'device_id': deviceId, 'push_token': token, 'platform': 'android',
+      });
+    } catch (_) {}
+  }
+
   Future<void> login(String email, String password) async {
     final res = await _post('/api/mobile/v2/auth/login', body: {
       'email': email, 'password': password,

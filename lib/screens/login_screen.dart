@@ -1,7 +1,10 @@
 // Sign-in for carrier portal users (managers + drivers).
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../api.dart';
+import '../fcm_service.dart';
 import '../main.dart';
 import 'home_screen.dart';
 
@@ -26,6 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _busy = true);
     try {
       await CarrierApi.instance.login(_email.text.trim(), _pass.text);
+      unawaited(FcmService.instance.register());
       if (!mounted) return;
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (_) => const HomeScreen()));
