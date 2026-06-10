@@ -31,11 +31,25 @@ android {
         versionName = flutter.versionName
     }
 
+    // Google Play upload signing — used ONLY when UELLOW_SIGN=upload (CI).
+    // Direct/local builds stay debug-signed so `flutter run --release` works.
+    signingConfigs {
+        upload {
+            def ciStore = System.getenv('UELLOW_KEYSTORE_PATH')
+            if (ciStore != null && !ciStore.isEmpty()) {
+                storeFile file(ciStore)
+                storePassword System.getenv('UELLOW_KEYSTORE_PASSWORD') ?: ''
+                keyAlias System.getenv('UELLOW_KEY_ALIAS') ?: 'upload'
+                keyPassword (System.getenv('UELLOW_KEY_PASSWORD')
+                    ?: System.getenv('UELLOW_KEYSTORE_PASSWORD') ?: '')
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.debug
+            signingConfig = (System.getenv('UELLOW_SIGN') == 'upload')
+                ? signingConfigs.upload : signingConfigs.debug
         }
     }
 }
