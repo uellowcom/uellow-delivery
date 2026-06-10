@@ -134,6 +134,31 @@ class CarrierApi {
     return (res['data'] as Map).cast<String, dynamic>();
   }
 
+  // trips — sorting-centre receiving (barcode + manual)
+  Future<List<Map<String, dynamic>>> trips() async {
+    final res = await _get('/api/mobile/v2/carrier/trips');
+    return List<Map<String, dynamic>>.from(
+        (res['data']?['trips'] as List?) ?? const []);
+  }
+
+  Future<Map<String, dynamic>> tripDetail(int id) async =>
+      ((await _get('/api/mobile/v2/carrier/trips/$id'))['data'] as Map)
+          .cast<String, dynamic>();
+
+  Future<Map<String, dynamic>> tripReceive(int id,
+      {required List<int> orderIds, bool receiveMissing = false}) async {
+    final res = await _post('/api/mobile/v2/carrier/trips/$id/receive',
+        body: {'order_ids': orderIds, 'receive_missing': receiveMissing});
+    return (res['data'] as Map).cast<String, dynamic>();
+  }
+
+  /// Assign a driver to COLLECT this trip from the Uellow warehouse (pickup leg).
+  Future<Map<String, dynamic>> tripAssignPickup(int id, int driverId) async {
+    final res = await _post('/api/mobile/v2/carrier/trips/$id/assign-pickup',
+        body: {'driver_id': driverId});
+    return (res['data'] as Map).cast<String, dynamic>();
+  }
+
   Future<List<Map<String, dynamic>>> drivers() async {
     final res = await _get('/api/mobile/v2/carrier/drivers');
     return List<Map<String, dynamic>>.from(

@@ -11,6 +11,7 @@ import '../api.dart';
 import '../main.dart';
 import 'login_screen.dart';
 import 'tabs.dart';
+import 'trips_tab.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -88,6 +89,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         const Icon(Icons.local_shipping, color: kOrange),
                     label: ar ? 'الطلبات' : 'Orders'),
                 if (_isManager) NavigationDestination(
+                    icon: const Icon(Icons.inventory_2_outlined),
+                    selectedIcon:
+                        const Icon(Icons.inventory_2, color: kOrange),
+                    label: ar ? 'الرحلات' : 'Trips'),
+                if (_isManager) NavigationDestination(
                     icon: const Icon(Icons.payments_outlined),
                     selectedIcon:
                         const Icon(Icons.payments, color: kOrange),
@@ -141,6 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // map nav index → tab widget (cash/drivers only for managers)
     final tabs = <Widget>[
       OrdersTab(me: me, isManager: _isManager, onChanged: _load),
+      if (_isManager) TripsTab(onChanged: _load),
       if (_isManager) CashTab(onChanged: _load),
       StatsTab(me: me),
       if (_isManager) const DriversTab(),

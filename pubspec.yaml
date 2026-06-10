@@ -1,7 +1,7 @@
 name: uellow_delivery_app
 description: Uellow Delivery — carrier companies & drivers companion app
 publish_to: 'none'
-version: 1.1.2+4
+version: 1.1.3+5
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -17,6 +17,7 @@ dependencies:
   url_launcher: ^6.3.1
   image_picker: ^1.1.2
   geolocator: ^13.0.2
+  mobile_scanner: ^6.0.2  # barcode receiving at the sorting centre
 
 dev_dependencies:
   flutter_test:
