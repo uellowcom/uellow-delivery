@@ -1,0 +1,2 @@
+/root/uellow_delivery_app/android/app/.cxx/RelWithDebInfo/5a1k1n6e/armeabi-v7a/CMakeFiles/edit_cache.dir
+/root/uellow_delivery_app/android/app/.cxx/RelWithDebInfo/5a1k1n6e/armeabi-v7a/CMakeFiles/rebuild_cache.dir
